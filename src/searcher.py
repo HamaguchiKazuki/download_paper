@@ -58,7 +58,8 @@ class CvfSearcher(Searcher):
                 is_day = "?day" in day_or_paper
                 if is_day:
                     day = day_or_paper
-                    conference_day = conference_year + day[11:]
+                    day_query_index = day.find("?")
+                    conference_day = conference_year + day[day_query_index:]
                     res_html_papers = requests.get(os.path.join(self.https, self.top_path, conference_year, conference_day))
                     time.sleep(1.0 + random.uniform(0, 1))
                     try:
