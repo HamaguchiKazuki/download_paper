@@ -7,17 +7,30 @@
 import unittest
 from src.searcher import CvfSearcher
 
+
 class TestCvfSearcher(unittest.TestCase):
 
     def test_cvpr_searcher(self):
         cvpr_sercher = CvfSearcher(conference_name="CVPR")
-        year_list = ["2013", "2014", "2015", "2016", "2017", "2018", "2019",  "2020"]
+        year_list = ["2013", "2018"]
         paper_url_list, err = cvpr_sercher.find_paper_url_list(year_list)
         if not err == None:
             self.assertFalse(err)
-        ## Make sure they are all pdf files.
-        checked_paper_list = [paper for paper in paper_url_list if ".pdf" in paper]
+
+        # Make sure they are all pdf files.
+        checked_paper_list = [
+            paper for paper in paper_url_list if ".pdf" in paper]
         self.assertListEqual(checked_paper_list, paper_url_list)
+
+        expected_list = ["https://openaccess.thecvf.com/content_cvpr_2013/papers/Kim_Deformable_Spatial_Pyramid_2013_CVPR_paper.pdf",
+                         "https://openaccess.thecvf.com/content_cvpr_2018/papers/Das_Embodied_Question_Answering_CVPR_2018_paper.pdf"]
+        for expected in expected_list:
+            checked_a_paper = [
+                paper for paper in paper_url_list if expected in paper]
+            if checked_a_paper == []:
+                self.assertFalse(f"no hit expected paper,{expected}")
+            else:
+                self.assertEqual(checked_a_paper[0], expected)
 
     def test_wacv_searcher(self):
         wacv_sercher = CvfSearcher(conference_name="WACV")
@@ -26,13 +39,23 @@ class TestCvfSearcher(unittest.TestCase):
         if not err == None:
             self.assertFalse(err)
 
-        checked_paper_list = [paper for paper in paper_url_list if ".pdf" in paper]
+        checked_paper_list = [
+            paper for paper in paper_url_list if ".pdf" in paper]
         self.assertListEqual(checked_paper_list, paper_url_list)
 
+        expected_list = ["https://openaccess.thecvf.com/content_WACV_2020/papers/Nabavi_Unsupervised_Learning_of_Camera_Pose_with_Compositional_Re-estimation_WACV_2020_paper.pdf",
+                         "https://openaccess.thecvf.com/content/WACV2021/papers/Fortin_Towards_Contextual_Learning_in_Few-Shot_Object_Classification_WACV_2021_paper.pdf"]
+        for expected in expected_list:
+            checked_a_paper = [
+                paper for paper in paper_url_list if expected in paper]
+            if checked_a_paper == []:
+                self.assertFalse(f"no hit expected paper,{expected}")
+            else:
+                self.assertEqual(checked_a_paper[0], expected)
 
     def test_iccv_searcher(self):
         iccv_sercher = CvfSearcher(conference_name="ICCV")
-        year_list = ["2013", "2015", "2017", "2019"]
+        year_list = ["2013", "2019"]
         paper_url_list, err = iccv_sercher.find_paper_url_list(year_list)
         if not err == None:
             self.assertFalse(err)
@@ -40,6 +63,16 @@ class TestCvfSearcher(unittest.TestCase):
         checked_paper_list = [
             paper for paper in paper_url_list if ".pdf" in paper]
         self.assertListEqual(checked_paper_list, paper_url_list)
+
+        expected_list = ["https://openaccess.thecvf.com/content_cvpr_2013/papers/Garg_Dense_Variational_Reconstruction_2013_CVPR_paper.pdf",
+                         "https://openaccess.thecvf.com/content_ICCV_2019/papers/Yu_Free-Form_Image_Inpainting_With_Gated_Convolution_ICCV_2019_paper.pdf"]
+        for expected in expected_list:
+            checked_a_paper = [
+                paper for paper in paper_url_list if expected in paper]
+            if checked_a_paper == []:
+                self.assertFalse(f"no hit expected paper,{expected}")
+            else:
+                self.assertEqual(checked_a_paper[0], expected)
 
     def test_out_of_range_year(self):
         cvpr_sercher = CvfSearcher(conference_name="CVPR")
