@@ -64,7 +64,7 @@ class TestCvfSearcher(unittest.TestCase):
             paper for paper in paper_url_list if ".pdf" in paper]
         self.assertListEqual(checked_paper_list, paper_url_list)
 
-        expected_list = ["https://openaccess.thecvf.com/content_cvpr_2013/papers/Garg_Dense_Variational_Reconstruction_2013_CVPR_paper.pdf",
+        expected_list = ["https://openaccess.thecvf.com/content_iccv_2013/papers/Shankar_Semantic_Transform_Weakly_2013_ICCV_paper.pdf",
                          "https://openaccess.thecvf.com/content_ICCV_2019/papers/Yu_Free-Form_Image_Inpainting_With_Gated_Convolution_ICCV_2019_paper.pdf"]
         for expected in expected_list:
             checked_a_paper = [
