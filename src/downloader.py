@@ -32,7 +32,7 @@ class Downloader():
         except Exception as err:
             return err
         pdf_name = os.path.basename(url_path)
-        pdf_save_path = os.path.join(save_dir, pdf_name)
+        pdf_save_path = os.path.join(save_dir, pdf_name).replace(os.sep, "/")
         with open(pdf_save_path, "wb") as pdf_data:
             for chunk_pdf_data in res.iter_content(iter_chunk_size):
                 pdf_data.write(chunk_pdf_data)

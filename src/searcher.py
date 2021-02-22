@@ -41,7 +41,7 @@ class CvfSearcher(Searcher):
         for year in year_list:
             conference_year = self.conference_name + year
             res_html_days_or_papers = requests.get(
-                os.path.join(self.https, self.top_path, conference_year))
+                os.path.join(self.https, self.top_path, conference_year).replace(os.sep, "/"))
             time.sleep(1.0 + random.uniform(0, 1))
             try:
                 res_html_days_or_papers.raise_for_status()
@@ -64,7 +64,7 @@ class CvfSearcher(Searcher):
                     day_query_index = day.find("?")
                     conference_day = conference_year + day[day_query_index:]
                     res_html_papers = requests.get(os.path.join(
-                        self.https, self.top_path, conference_year, conference_day))
+                        self.https, self.top_path, conference_year, conference_day).replace(os.sep, "/"))
                     time.sleep(1.0 + random.uniform(0, 1))
                     try:
                         res_html_papers.raise_for_status()
@@ -84,7 +84,7 @@ class CvfSearcher(Searcher):
                             if is_there_slash_top_level:
                                 paper = paper[1:]
                             paper_url = os.path.join(
-                                self.https, self.top_path, paper)
+                                self.https, self.top_path, paper).replace(os.sep, "/")
                             paper_url_list.append(paper_url)
                 else:
                     paper = day_or_paper
@@ -96,7 +96,7 @@ class CvfSearcher(Searcher):
                         if is_there_slash_top_level:
                             paper = paper[1:]
                         paper_url = os.path.join(
-                            self.https, self.top_path, paper)
+                            self.https, self.top_path, paper).replace(os.sep, "/")
                         paper_url_list.append(paper_url)
 
         return paper_url_list, err
