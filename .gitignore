@@ -248,7 +248,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/python,windows,linux,macos,vscode,venv,git
-
-*.pdf
+/tests/test_join_pdf/conference.pdf
+/paper_pdf/
 /tests/test_dir
 /src/old
