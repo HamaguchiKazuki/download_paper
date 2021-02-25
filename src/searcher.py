@@ -6,7 +6,6 @@
 import os
 import random
 import time
-import logging
 
 import requests
 from bs4 import BeautifulSoup
@@ -79,7 +78,8 @@ class CvfSearcher(Searcher):
                         is_href_empty = (paper == None)
                         if is_href_empty:
                             continue
-                        if ".pdf" in paper:
+                        is_paper_body = all(["papers" in paper, ".pdf" in paper])
+                        if is_paper_body:
                             is_there_slash_top_level = (paper.find("/") == 0)
                             if is_there_slash_top_level:
                                 paper = paper[1:]
@@ -91,7 +91,8 @@ class CvfSearcher(Searcher):
                     is_href_empty = (paper == None)
                     if is_href_empty:
                         continue
-                    if ".pdf" in paper:
+                    is_paper_body = all(["papers" in paper, ".pdf" in paper])
+                    if is_paper_body:
                         is_there_slash_top_level = (paper.find("/") == 0)
                         if is_there_slash_top_level:
                             paper = paper[1:]
